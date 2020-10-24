@@ -13,6 +13,7 @@ def action():
         btn1.config(bg='red')
         turn = turns[1]
     elif turn == turns[1]:
+        btn1.config(bg='blue')
         turn = turns[0]
         
 
