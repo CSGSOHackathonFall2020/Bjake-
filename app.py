@@ -20,15 +20,56 @@ turns = 0 # when turns = 9, we need to check for a winner
 def checkWinner():
     global gameGrid
 
-    print(gameGrid)
+    if gameGrid[0][0] == gameGrid[0][1] and gameGrid[0][0] == gameGrid[0][2]:
+        if gameGrid[0][0] == '' or gameGrid[0][1] == '' or gameGrid[0][2] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[1][0] == gameGrid[1][1] and gameGrid[1][0] == gameGrid[1][2]:
+        if gameGrid[1][0] == '' or gameGrid[1][1] == '' or gameGrid[1][2] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[2][0] == gameGrid[2][1] and gameGrid[2][0] == gameGrid[2][2]:
+        if gameGrid[2][0] == '' or gameGrid[2][1] == '' or gameGrid[2][2] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[0][0] == gameGrid[1][0] and gameGrid[0][0] == gameGrid[2][0]:
+        if gameGrid[0][0] == '' or gameGrid[1][0] == '' or gameGrid[2][0] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[0][1] == gameGrid[1][1] and gameGrid[0][1] == gameGrid[2][1]:
+        if gameGrid[0][1] == '' or gameGrid[1][1] == '' or gameGrid[2][1] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[0][2] == gameGrid[1][2] and gameGrid[0][2] == gameGrid[2][2]:
+        if gameGrid[0][2] == '' or gameGrid[1][2] == '' or gameGrid[2][2] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[0][0] == gameGrid[1][1] and gameGrid[0][0] == gameGrid[2][2]:
+        if gameGrid[0][0] == '' or gameGrid[1][1] == '' or gameGrid[2][2] == '':
+            pass
+        else:
+            print('winner')
+    elif gameGrid[2][0] == gameGrid[1][1] and gameGrid[2][0] == gameGrid[0][2]:
+        if gameGrid[2][0] == '' or gameGrid[1][1] == '' or gameGrid[0][2] == '':
+            pass
+        else:
+            print('winner')
+            
+            
 
 def action(button):
     global turn, turns
     if turn == players[0] and button['bg'] == 'white': # check whos turn and if button is empty
         button.config(bg='red')
 
-        row = button.grid_info()['row']
-        column = button.grid_info()['column']
+        row = int(button.grid_info()['row'])
+        column = int(button.grid_info()['column'])
         gameGrid[row-1][column] = "red"
 
         checkWinner()
@@ -38,8 +79,8 @@ def action(button):
     elif turn == players[1] and button['bg'] == 'white': # check whos turn and if button is empty
         button.config(bg='blue')
 
-        row = button.grid_info()['row']
-        column = button.grid_info()['column']
+        row = int(button.grid_info()['row'])
+        column = int(button.grid_info()['column'])
         gameGrid[row-1][column] = "blue"
 
         checkWinner()
