@@ -19,47 +19,78 @@ turns = 0 # when turns = 9, we need to check for a winner
 
 def checkWinner():
     global gameGrid
-
+    
+	#top horizontal
     if gameGrid[0][0] == gameGrid[0][1] and gameGrid[0][0] == gameGrid[0][2]:
         if gameGrid[0][0] == '' or gameGrid[0][1] == '' or gameGrid[0][2] == '':
+            print('pass1')
             pass
         else:
-            print('winner')
-    elif gameGrid[1][0] == gameGrid[1][1] and gameGrid[1][0] == gameGrid[1][2]:
+            print('winner1')
+            return
+            
+    #mid horizontal
+    if gameGrid[1][0] == gameGrid[1][1] and gameGrid[1][0] == gameGrid[1][2]:
         if gameGrid[1][0] == '' or gameGrid[1][1] == '' or gameGrid[1][2] == '':
+            print('pass2')
             pass
         else:
-            print('winner')
-    elif gameGrid[2][0] == gameGrid[2][1] and gameGrid[2][0] == gameGrid[2][2]:
+            print('winner2')
+            return
+            
+    #bottom horizontal
+    if gameGrid[2][0] == gameGrid[2][1] and gameGrid[2][0] == gameGrid[2][2]:
         if gameGrid[2][0] == '' or gameGrid[2][1] == '' or gameGrid[2][2] == '':
+            print('pass3')
             pass
         else:
-            print('winner')
-    elif gameGrid[0][0] == gameGrid[1][0] and gameGrid[0][0] == gameGrid[2][0]:
+            print('winner3')
+            return
+            
+    #left vertical
+    if gameGrid[0][0] == gameGrid[1][0] and gameGrid[0][0] == gameGrid[2][0]:
         if gameGrid[0][0] == '' or gameGrid[1][0] == '' or gameGrid[2][0] == '':
+            print('pass4')
             pass
         else:
-            print('winner')
-    elif gameGrid[0][1] == gameGrid[1][1] and gameGrid[0][1] == gameGrid[2][1]:
+            print('winner4')
+            return
+            
+    #mid vertical
+    if gameGrid[0][1] == gameGrid[1][1] and gameGrid[0][1] == gameGrid[2][1]:
         if gameGrid[0][1] == '' or gameGrid[1][1] == '' or gameGrid[2][1] == '':
+            print('pass5')
             pass
         else:
-            print('winner')
-    elif gameGrid[0][2] == gameGrid[1][2] and gameGrid[0][2] == gameGrid[2][2]:
+            print('winner5')
+            return
+            
+    #right vertical
+    if gameGrid[0][2] == gameGrid[1][2] and gameGrid[0][2] == gameGrid[2][2]:
         if gameGrid[0][2] == '' or gameGrid[1][2] == '' or gameGrid[2][2] == '':
+            print('pass6')
             pass
         else:
-            print('winner')
-    elif gameGrid[0][0] == gameGrid[1][1] and gameGrid[0][0] == gameGrid[2][2]:
+            print('winner6')
+            return
+            
+     #vert start top left
+    if gameGrid[0][0] == gameGrid[1][1] and gameGrid[0][0] == gameGrid[2][2]:
         if gameGrid[0][0] == '' or gameGrid[1][1] == '' or gameGrid[2][2] == '':
+            print('pass7')
             pass
         else:
-            print('winner')
-    elif gameGrid[2][0] == gameGrid[1][1] and gameGrid[2][0] == gameGrid[0][2]:
+            print('winner7')
+            return
+            
+    #vert bottom left
+    if gameGrid[2][0] == gameGrid[1][1] and gameGrid[2][0] == gameGrid[0][2]:
         if gameGrid[2][0] == '' or gameGrid[1][1] == '' or gameGrid[0][2] == '':
+            print('pass8')
             pass
         else:
-            print('winner')
+            print('winner8')
+            return
             
             
 
