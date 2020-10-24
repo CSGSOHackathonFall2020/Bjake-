@@ -22,6 +22,7 @@ def checkWinner():
             print('pass1')
             pass
         else:
+            restartGame()
             print('winner1')
             return
             
@@ -217,11 +218,31 @@ def startScreen():
     playButton = Button(app, text="PLAY", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
     playButton.configure(command=lambda: play())
     playButton.grid(column=1, row=5, pady=20)
+    
+    
+    
+def restartGame():
+    global setupLabelrestart, resetLabel,playerTwoLabel, resetButton
+
+    app.geometry('300x400')
+
+    setupLabelrestart = Label(app, text="Restart?")
+    setupLabelrestart.config(font=('Helvetica, 24'))
+    setupLabelrestart.grid(column=1, row=0, pady=30)
+
+    resetLabel = StringVar()
+    resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
+    resetLabel.grid(column=1, row=1)
+
+    resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+    resetButton.configure(command=lambda: play())
+    resetButton.grid(column=1, row=5, pady=20)
 
 
 # APP DETAILS
 app.title('TIC-TAC-TOE')
 
 startScreen()
+
 
 app.mainloop()
