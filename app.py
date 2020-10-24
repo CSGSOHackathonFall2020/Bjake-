@@ -8,7 +8,12 @@ turn = random.choice(turns) # chooses a random first turn
 # functions
 
 def action():
-    btn1.config(bg='red')
+    global turn
+    if turn == turns[0]:
+        btn1.config(bg='red')
+        turn = turns[1]
+    elif turn == turns[1]:
+        turn = turns[0]
         
 
 # INITIAL 
