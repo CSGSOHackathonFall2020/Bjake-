@@ -9,10 +9,6 @@ gameGrid = [
     ['','','']
 ]
 
-# VARIABLES
-players = ["Player 1", "Player 2"] # plan to allow players to insert names before turns. Hard code player 1 and 2 for now
-turn = random.choice(players) # chooses a random first turn
-
 turns = 0 # when turns = 9, we need to check for a winner
 
 # functions
@@ -95,7 +91,7 @@ def checkWinner():
             
 
 def action(button):
-    global turn, turns
+    global turn, turns, players
     if turn == players[0] and button['bg'] == 'white': # check whos turn and if button is empty
         button.config(bg='red')
 
@@ -106,6 +102,7 @@ def action(button):
         checkWinner()
 
         turn = players[1]
+        turnLabel.config(text=players[1] + "'s turn")
         turns += 1
     elif turn == players[1] and button['bg'] == 'white': # check whos turn and if button is empty
         button.config(bg='blue')
@@ -117,6 +114,7 @@ def action(button):
         checkWinner()
 
         turn = players[0]
+        turnLabel.config(text=players[0] + "'s turn")
         turns += 1
     else:
         pass # don't do anything until a blank button is clicked
@@ -127,7 +125,29 @@ app = Tk()
 
 # ----- APP WIDGETS -----
 
+def setup():
+    global turn, players
+
+    playerOneLabel.destroy()
+    playerOneEntry.destroy()
+    playerTwoEntry.destroy()
+    playerTwoLabel.destroy()
+    setupLabel.destroy()
+    playButton.destroy()
+
+    players = [] # plan to allow players to insert names before turns. Hard code player 1 and 2 for now
+
+    players.append(playerOneName.get())
+    players.append(playerTwoName.get())
+    turn = random.choice(players) # chooses a random first turn
+
+
 def play():
+    global turnLabel
+
+    setup()
+
+    app.geometry('600x700')
     # label indicates who's turn it is
     turnLabel = Label(app, text=turn + "'s Turn")
     turnLabel.config(font=('Helvetica, 24'))
@@ -173,13 +193,35 @@ def play():
     btn8.grid(column=1, row=3)
     btn9.grid(column=2, row=3)
 
+def startScreen():
+    global setupLabel, playerOneLabel, playerOneEntry, playerTwoLabel, playerTwoEntry, playerOneName, playerTwoName, playButton
 
+    app.geometry('300x400')
+
+    setupLabel = Label(app, text="TIC-TAC-TOE")
+    setupLabel.config(font=('Helvetica, 24'))
+    setupLabel.grid(column=1, row=0, pady=30)
+
+    playerOneName = StringVar()
+    playerOneLabel = Label(app, text="Player One Name", font=('Helvetica', 20))
+    playerOneLabel.grid(column=1, row=1)
+    playerOneEntry = Entry(app, textvariable=playerOneName, font=('Helvetica', 16), fg='red', borderwidth=4, relief="groove")
+    playerOneEntry.grid(column=1, row=2, padx=20)
+
+    playerTwoName = StringVar()
+    playerTwoLabel = Label(app, text="Player Two Name", font=('Helvetica', 20))
+    playerTwoLabel.grid(column=1, row=3)
+    playerTwoEntry = Entry(app, textvariable=playerTwoName, font=('Helvetica', 16), fg='blue', borderwidth=4, relief="groove")
+    playerTwoEntry.grid(column=1, row=4, padx=20)
+
+    playButton = Button(app, text="PLAY", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+    playButton.configure(command=lambda: play())
+    playButton.grid(column=1, row=5, pady=20)
 
 
 # APP DETAILS
-app.title('TIC-TAC-Toe')
-app.geometry('600x700')
+app.title('TIC-TAC-TOE')
 
-play()
+startScreen()
 
 app.mainloop()
