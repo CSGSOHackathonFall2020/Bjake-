@@ -1,20 +1,53 @@
 from tkinter import *
 import random
 
+# Two dimensional grid
+
+gameGrid = [
+    ['','',''],
+    ['','',''],
+    ['','','']
+]
+
 # VARIABLES
-turns = ["Player 1", "Player 2"] # plan to allow players to insert names before turns. Hard code player 1 and 2 for now
-turn = random.choice(turns) # chooses a random first turn
+players = ["Player 1", "Player 2"] # plan to allow players to insert names before turns. Hard code player 1 and 2 for now
+turn = random.choice(players) # chooses a random first turn
+
+turns = 0 # when turns = 9, we need to check for a winner
 
 # functions
 
-def action():
-    global turn
-    if turn == turns[0]:
-        btn1.config(bg='red')
-        turn = turns[1]
-    elif turn == turns[1]:
-        btn1.config(bg='blue')
-        turn = turns[0]
+def checkWinner():
+    global gameGrid
+
+    print(gameGrid)
+
+def action(button):
+    global turn, turns
+    if turn == players[0] and button['bg'] == 'white': # check whos turn and if button is empty
+        button.config(bg='red')
+
+        row = button.grid_info()['row']
+        column = button.grid_info()['column']
+        gameGrid[row-1][column] = "red"
+
+        checkWinner()
+
+        turn = players[1]
+        turns += 1
+    elif turn == players[1] and button['bg'] == 'white': # check whos turn and if button is empty
+        button.config(bg='blue')
+
+        row = button.grid_info()['row']
+        column = button.grid_info()['column']
+        gameGrid[row-1][column] = "blue"
+
+        checkWinner()
+
+        turn = players[0]
+        turns += 1
+    else:
+        pass # don't do anything until a blank button is clicked
         
 
 # INITIAL 
@@ -22,41 +55,51 @@ app = Tk()
 
 # ----- APP WIDGETS -----
 
-# label indicates who's turn it is
-turnLabel = Label(app, text=turn + "'s Turn")
-turnLabel.config(font=('Helvetica, 24'))
-turnLabel.grid(column=1, row=0, pady=30)
+def play():
+    # label indicates who's turn it is
+    turnLabel = Label(app, text=turn + "'s Turn")
+    turnLabel.config(font=('Helvetica, 24'))
+    turnLabel.grid(column=1, row=0, pady=30)
 
-# GRID
-#  [1,2,3]
-#  [4,5,6]
-#  [7,8,9]
+    # GRID
+    #  [1,2,3]
+    #  [4,5,6]
+    #  [7,8,9]
 
-# ROW 1
-btn1 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove", command=action)
-btn2 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
-btn3 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    # ROW 1
+    btn1 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn1.configure(command=lambda: action(btn1))
+    btn2 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn2.configure(command=lambda: action(btn2))
+    btn3 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn3.configure(command=lambda: action(btn3))
 
-# ROW 2
-btn4 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
-btn5 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
-btn6 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    # ROW 2
+    btn4 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn4.configure(command=lambda: action(btn4))
+    btn5 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn5.configure(command=lambda: action(btn5))
+    btn6 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn6.configure(command=lambda: action(btn6))
 
-# ROW 3
-btn7 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
-btn8 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
-btn9 = Button(app, text=" ", font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    # ROW 3
+    btn7 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn7.configure(command=lambda: action(btn7))
+    btn8 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn8.configure(command=lambda: action(btn8))
+    btn9 = Button(app, font=('Helvetica, 20'), height=5, width=10, bg='white', borderwidth=4, relief="groove")
+    btn9.configure(command=lambda: action(btn9))
 
-# add buttons to app
-btn1.grid(column=0, row=1, padx=12)
-btn2.grid(column=1, row=1)
-btn3.grid(column=2, row=1)
-btn4.grid(column=0, row=2)
-btn5.grid(column=1, row=2)
-btn6.grid(column=2, row=2)
-btn7.grid(column=0, row=3)
-btn8.grid(column=1, row=3)
-btn9.grid(column=2, row=3)
+    # add buttons to app
+    btn1.grid(column=0, row=1, padx=12)
+    btn2.grid(column=1, row=1)
+    btn3.grid(column=2, row=1)
+    btn4.grid(column=0, row=2)
+    btn5.grid(column=1, row=2)
+    btn6.grid(column=2, row=2)
+    btn7.grid(column=0, row=3)
+    btn8.grid(column=1, row=3)
+    btn9.grid(column=2, row=3)
 
 
 
@@ -64,5 +107,7 @@ btn9.grid(column=2, row=3)
 # APP DETAILS
 app.title('TIC-TAC-Toe')
 app.geometry('600x700')
+
+play()
 
 app.mainloop()
