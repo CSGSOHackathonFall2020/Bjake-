@@ -1,3 +1,4 @@
 # Bjake-
 CSGSOHackathonFall2020
-Blake Rhodes / Jake Garnett
+# Tic-Tac-Toe Project
+By Blake Rhodes / Jake Garnett
