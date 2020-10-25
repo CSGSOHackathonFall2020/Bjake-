@@ -160,7 +160,7 @@ def play():
 
     setup()
 
-    app.geometry('600x700')
+    app.geometry('575x700')
     # label indicates who's turn it is
     turnLabel = Label(app, text=turn + "'s Turn")
     turnLabel.config(font=('Helvetica, 24'))
@@ -230,25 +230,11 @@ def startScreen():
     playButton = Button(app, text="PLAY", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
     playButton.configure(command=lambda: play())
     playButton.grid(column=1, row=5, pady=20)
-    
-def restartGame():
-    global setupLabelrestart, resetLabel,playerTwoLabel, resetButton
 
-    clearGrid()
-    
-    app.geometry('275x275')
-
-    setupLabelrestart = Label(app, text= winColor + " won the game")
-    setupLabelrestart.config(font=('Helvetica, 24'))
-    setupLabelrestart.grid(column=1, row=0, pady=30)
-
-    resetLabel = StringVar()
-    resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
-    resetLabel.grid(column=1, row=1)
-
-    resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
-    resetButton.configure(command=lambda: play())
-    resetButton.grid(column=1, row=5, pady=20)
+def clearButtons():
+    resetButton.destroy()
+    setupLabelrestart.destroy()
+    resetLabel.destroy()
 
 #clears grid
 def clearGrid():
@@ -272,6 +258,30 @@ def clearGrid():
 	gameGrid[2][0] = ''
 	gameGrid[2][1] = ''
 	gameGrid[2][2] = ''
+
+    
+def restartGame():
+    global setupLabelrestart, resetLabel,playerTwoLabel, resetButton
+
+    clearGrid()
+    
+    app.geometry('300x275')
+
+    if winColor == 'red':
+        winner = players[0]
+    elif winColor == 'blue':
+        winner = players[1]
+
+    setupLabelrestart = Label(app, text= winner + " won the game")
+    setupLabelrestart.config(font=('Helvetica, 24'))
+    setupLabelrestart.grid(column=1, row=0, pady=30)
+
+    resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
+    resetLabel.grid(column=1, row=1)
+
+    resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+    resetButton.configure(command=lambda: [play(), test()])
+    resetButton.grid(column=1, row=5, pady=20)
 
 
 
