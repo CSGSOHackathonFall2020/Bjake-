@@ -14,94 +14,107 @@ turns = 0 # when turns = 9, we need to check for a winner
 # functions
 
 def checkWinner():
-    global gameGrid, winColor
+    global gameGrid, winColor, turns
     
 	#top horizontal
     if gameGrid[0][0] == gameGrid[0][1] and gameGrid[0][0] == gameGrid[0][2]:
         if gameGrid[0][0] == '' or gameGrid[0][1] == '' or gameGrid[0][2] == '':
             print('pass1')
-            pass
+
         else:
             winColor = gameGrid[0][0]
             restartGame()
             print('winner1')
+            turns = 0
             return
             
     #mid horizontal
     if gameGrid[1][0] == gameGrid[1][1] and gameGrid[1][0] == gameGrid[1][2]:
         if gameGrid[1][0] == '' or gameGrid[1][1] == '' or gameGrid[1][2] == '':
             print('pass2')
-            pass
+
         else:
             winColor = gameGrid[1][0]
             restartGame()
             print('winner2')
+            turns = 0
             return
             
     #bottom horizontal
     if gameGrid[2][0] == gameGrid[2][1] and gameGrid[2][0] == gameGrid[2][2]:
         if gameGrid[2][0] == '' or gameGrid[2][1] == '' or gameGrid[2][2] == '':
             print('pass3')
-            pass
+
         else:
             winColor = gameGrid[2][0]
             restartGame()
             print('winner3')
+            turns = 0
             return
             
     #left vertical
     if gameGrid[0][0] == gameGrid[1][0] and gameGrid[0][0] == gameGrid[2][0]:
         if gameGrid[0][0] == '' or gameGrid[1][0] == '' or gameGrid[2][0] == '':
             print('pass4')
-            pass
+
         else:
             winColor = gameGrid[0][0]
             restartGame()
             print('winner4')
+            turns = 0
             return
             
     #mid vertical
     if gameGrid[0][1] == gameGrid[1][1] and gameGrid[0][1] == gameGrid[2][1]:
         if gameGrid[0][1] == '' or gameGrid[1][1] == '' or gameGrid[2][1] == '':
             print('pass5')
-            pass
+
         else:
             winColor = gameGrid[0][1]
             restartGame()
             print('winner5')
+            turns = 0
             return
             
     #right vertical
     if gameGrid[0][2] == gameGrid[1][2] and gameGrid[0][2] == gameGrid[2][2]:
         if gameGrid[0][2] == '' or gameGrid[1][2] == '' or gameGrid[2][2] == '':
             print('pass6')
-            pass
+
         else:
             winColor = gameGrid[0][2]
             restartGame()
             print('winner6')
+            turns = 0
             return
             
      #vert start top left
     if gameGrid[0][0] == gameGrid[1][1] and gameGrid[0][0] == gameGrid[2][2]:
         if gameGrid[0][0] == '' or gameGrid[1][1] == '' or gameGrid[2][2] == '':
             print('pass7')
-            pass
+
         else:
             winColor = gameGrid[0][0]
             restartGame()
             print('winner7')
+            turns = 0
             return
             
     #vert bottom left
     if gameGrid[2][0] == gameGrid[1][1] and gameGrid[2][0] == gameGrid[0][2]:
         if gameGrid[2][0] == '' or gameGrid[1][1] == '' or gameGrid[0][2] == '':
             print('pass8')
-            pass
+
         else:
             restartGame()
             print('winner8')
+            turns = 0
             return
+    if turns == 8:
+        print("tie")
+        winColor = 'none'
+        turns = 0
+        restartGame()
             
 def action(button):
     global turn, turns, players
@@ -238,6 +251,7 @@ def clearButtons():
 
 #clears grid
 def clearGrid():
+
 	btn1.destroy()
 	btn2.destroy()
 	btn3.destroy()
@@ -266,25 +280,44 @@ def restartGame():
     clearGrid()
     
     app.geometry('300x275')
+    if winColor == 'none':
+            setupLabelrestart = Label(app, text= "Tie!")
+            setupLabelrestart.config(font=('Helvetica, 24'))
+            setupLabelrestart.grid(column=1, row=0, pady=30)
+
+            resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
+            resetLabel.grid(column=1, row=1)
+
+            resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+            resetButton.configure(command=lambda: [play(), clearButtons()])
+            resetButton.grid(column=1, row=5, pady=20)
+        
 
     if winColor == 'red':
-        winner = players[0]
+            winner = players[0]
+            setupLabelrestart = Label(app, text= winner + " won the game")
+            setupLabelrestart.config(font=('Helvetica, 24'))
+            setupLabelrestart.grid(column=1, row=0, pady=30)
+
+            resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
+            resetLabel.grid(column=1, row=1)
+
+            resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+            resetButton.configure(command=lambda: [play(), clearButtons()])
+            resetButton.grid(column=1, row=5, pady=20)
     elif winColor == 'blue':
-        winner = players[1]
+            winner = players[1]
+            setupLabelrestart = Label(app, text= winner + " won the game")
+            setupLabelrestart.config(font=('Helvetica, 24'))
+            setupLabelrestart.grid(column=1, row=0, pady=30)
 
-    setupLabelrestart = Label(app, text= winner + " won the game")
-    setupLabelrestart.config(font=('Helvetica, 24'))
-    setupLabelrestart.grid(column=1, row=0, pady=30)
+            resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
+            resetLabel.grid(column=1, row=1)
 
-    resetLabel = Label(app, text="Reset game?", font=('Helvetica', 20))
-    resetLabel.grid(column=1, row=1)
-
-    resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
-    resetButton.configure(command=lambda: [play(), test()])
-    resetButton.grid(column=1, row=5, pady=20)
-
-
-
+            resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
+            resetButton.configure(command=lambda: [play(), clearButtons()])
+            resetButton.grid(column=1, row=5, pady=20)
+            
 # APP DETAILS
 app.title('TIC-TAC-TOE')
 
