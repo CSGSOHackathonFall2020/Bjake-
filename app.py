@@ -14,7 +14,7 @@ turns = 0 # when turns = 9, we need to check for a winner
 # functions
 
 def checkWinner():
-    global gameGrid
+    global gameGrid, winColor
     
 	#top horizontal
     if gameGrid[0][0] == gameGrid[0][1] and gameGrid[0][0] == gameGrid[0][2]:
@@ -22,6 +22,7 @@ def checkWinner():
             print('pass1')
             pass
         else:
+            winColor = gameGrid[0][0]
             restartGame()
             print('winner1')
             return
@@ -32,6 +33,8 @@ def checkWinner():
             print('pass2')
             pass
         else:
+            winColor = gameGrid[1][0]
+            restartGame()
             print('winner2')
             return
             
@@ -41,6 +44,8 @@ def checkWinner():
             print('pass3')
             pass
         else:
+            winColor = gameGrid[2][0]
+            restartGame()
             print('winner3')
             return
             
@@ -50,6 +55,8 @@ def checkWinner():
             print('pass4')
             pass
         else:
+            winColor = gameGrid[0][0]
+            restartGame()
             print('winner4')
             return
             
@@ -59,6 +66,8 @@ def checkWinner():
             print('pass5')
             pass
         else:
+            winColor = gameGrid[0][1]
+            restartGame()
             print('winner5')
             return
             
@@ -68,6 +77,8 @@ def checkWinner():
             print('pass6')
             pass
         else:
+            winColor = gameGrid[0][2]
+            restartGame()
             print('winner6')
             return
             
@@ -77,6 +88,8 @@ def checkWinner():
             print('pass7')
             pass
         else:
+            winColor = gameGrid[0][0]
+            restartGame()
             print('winner7')
             return
             
@@ -86,11 +99,10 @@ def checkWinner():
             print('pass8')
             pass
         else:
+            restartGame()
             print('winner8')
             return
             
-            
-
 def action(button):
     global turn, turns, players
     if turn == players[0] and button['bg'] == 'white': # check whos turn and if button is empty
@@ -144,7 +156,7 @@ def setup():
 
 
 def play():
-    global turnLabel
+    global turnLabel, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9
 
     setup()
 
@@ -219,14 +231,14 @@ def startScreen():
     playButton.configure(command=lambda: play())
     playButton.grid(column=1, row=5, pady=20)
     
-    
-    
 def restartGame():
     global setupLabelrestart, resetLabel,playerTwoLabel, resetButton
 
-    app.geometry('300x400')
+    clearGrid()
+    
+    app.geometry('275x275')
 
-    setupLabelrestart = Label(app, text="Restart?")
+    setupLabelrestart = Label(app, text= winColor + " won the game")
     setupLabelrestart.config(font=('Helvetica, 24'))
     setupLabelrestart.grid(column=1, row=0, pady=30)
 
@@ -237,6 +249,29 @@ def restartGame():
     resetButton = Button(app, text="Restart", font=('Helvetica, 20'), fg="white", bg='green', borderwidth=4, relief="groove", width=15)
     resetButton.configure(command=lambda: play())
     resetButton.grid(column=1, row=5, pady=20)
+
+def clearGrid():
+	btn1.destroy()
+	btn2.destroy()
+	btn3.destroy()
+	btn4.destroy()
+	btn5.destroy()
+	btn6.destroy()
+	btn7.destroy()
+	btn8.destroy()
+	btn9.destroy()
+
+	turnLabel = ''
+	gameGrid[0][0] = ''
+	gameGrid[0][1] = ''
+	gameGrid[0][2] = ''
+	gameGrid[1][0] = ''
+	gameGrid[1][1] = ''
+	gameGrid[1][2] = ''
+	gameGrid[2][0] = ''
+	gameGrid[2][1] = ''
+	gameGrid[2][2] = ''
+
 
 
 # APP DETAILS
