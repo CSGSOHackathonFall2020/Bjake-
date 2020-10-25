@@ -250,6 +250,7 @@ def restartGame():
     resetButton.configure(command=lambda: play())
     resetButton.grid(column=1, row=5, pady=20)
 
+#clears grid
 def clearGrid():
 	btn1.destroy()
 	btn2.destroy()
